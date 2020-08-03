@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
+import Heading from "./components/Heading";
+import NoteList from "./components/NoteList";
+import CreateNote from "./components/CreateNote";
+import Note from "./models/Note";
 
 const App: React.FC = () => {
+  const [notes, setNotes] = useState<Note[]>([]);
+
+  const addNote = (note: Note) => {
+    setNotes((prevNotes) => [
+      ...prevNotes,
+      {
+        id: note.id,
+        title: note.title,
+      },
+    ]);
+  };
   return (
     <div className="App">
-      <h1>Hello</h1>
+      <Heading />
+      <CreateNote onAddNote={addNote} />
+      <NoteList items={notes} />
     </div>
   );
 };
