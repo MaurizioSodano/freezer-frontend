@@ -1,10 +1,10 @@
 export interface Note{
-    id:string
+    id?:string
     title:string
     quantity?:number
     weight?:number
-    insertion_date?:Date
-    best_before_date?:Date
+    insertion_date?:string
+    best_before_date?:string
 }
 
 export default Note;
