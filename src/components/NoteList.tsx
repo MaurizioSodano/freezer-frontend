@@ -1,15 +1,19 @@
 import React from "react";
 import Note from "../models/Note";
 interface NoteListProps {
-    items:Note[];
-};
+  items: Note[];
+  onDeleteNote: (id: string) => void;
+}
 
-const NoteList: React.FC<NoteListProps> = props => {
-  
+const NoteList: React.FC<NoteListProps> = (props) => {
+
   return (
     <ul>
       {props.items.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
+        <li key={todo.id}>
+          <span> {todo.title}</span>
+          <button onClick={props.onDeleteNote.bind(null,todo.id)}>DELETE</button>
+        </li>
       ))}
     </ul>
   );

@@ -16,11 +16,17 @@ const App: React.FC = () => {
       },
     ]);
   };
+
+  const deleteNote = (todoId: string) => {
+    setNotes((prevNotes) => {
+      return prevNotes.filter((note) => note.id !== todoId);
+    });
+  };
   return (
     <div className="App">
       <Heading />
       <CreateNote onAddNote={addNote} />
-      <NoteList items={notes} />
+      <NoteList items={notes} onDeleteNote={deleteNote} />
     </div>
   );
 };
