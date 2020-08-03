@@ -13,6 +13,7 @@ const App: React.FC = () => {
       {
         id: note.id,
         title: note.title,
+        quantity:note.quantity,
       },
     ]);
   };

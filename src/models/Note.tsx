@@ -1,8 +1,10 @@
 export interface Note{
     id:string
     title:string
-
-   // onDelete(id:string):void
+    quantity?:number
+    weight?:number
+    insertion_date?:Date
+    best_before_date?:Date
 }
 
 export default Note;

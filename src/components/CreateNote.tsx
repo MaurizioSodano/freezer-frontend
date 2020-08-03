@@ -11,7 +11,7 @@ const CreateNote: React.FC<NoteProps> = (props) => {
   const noteSubmitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     const enteredText = textInputRef.current!.value;
-    const note = { id: Math.random().toString(), title: enteredText };
+    const note = { id: Math.random().toString(), title: enteredText,quantity:0 };
     props.onAddNote(note);
   };
 

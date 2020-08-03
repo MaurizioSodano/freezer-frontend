@@ -12,6 +12,7 @@ const NoteList: React.FC<NoteListProps> = (props) => {
       {props.items.map((todo) => (
         <li key={todo.id}>
           <span> {todo.title}</span>
+          <span> {todo.quantity}</span>
           <button onClick={props.onDeleteNote.bind(null,todo.id)}>DELETE</button>
         </li>
       ))}
