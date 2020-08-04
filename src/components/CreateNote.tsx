@@ -84,7 +84,7 @@ const CreateNote: React.FC<NoteProps> = (props) => {
 
             onChange={(date) => {
               const parsedDate = dateFormat(date as Date, "dd/mm/yyyy");
-              setStartDate(parsedDate);
+              //setStartDate(parsedDate);
               setNote((prevValue) => {
                 return {
                   ...prevValue,
@@ -104,7 +104,7 @@ const CreateNote: React.FC<NoteProps> = (props) => {
 
             onChange={(date) => {
               const parsedDate = dateFormat(date as Date, "dd/mm/yyyy");
-              setEndDate(parsedDate);
+              //setEndDate(parsedDate);
               setNote((prevValue) => {
                 return {
                   ...prevValue,
