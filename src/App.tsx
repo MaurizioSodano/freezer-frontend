@@ -8,9 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 import Table, { Styles } from "./components/Table";
 import axios from "axios";
 import qs from 'qs'
-const BASE_URL = "http://localhost:4000/items";//process.env.FREEZER_API_BASE_URL as string;
-console.log(BASE_URL);
-console.log(process.env.FREEZER_API_BASE_URL);
+const BASE_URL = process.env.REACT_APP_FREEZER_API_BASE_URL as string;
+
 const App: React.FC = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [isLoading, setLoading] = useState(true);
