@@ -1,19 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Heading from "./components/Heading";
 import Footer from "./components/Footer";
 import { Column } from 'react-table'
 import CreateNote from "./components/CreateNote";
 import Note from "./models/Note";
 import { v4 as uuidv4 } from "uuid";
-import Table , {Styles} from "./components/Table";
-
-
+import Table, { Styles } from "./components/Table";
+import axios from "axios";
+import qs from 'qs'
+const BASE_URL = "http://localhost:4000/items";//process.env.FREEZER_API_BASE_URL as string;
+console.log(BASE_URL);
+console.log(process.env.FREEZER_API_BASE_URL);
 const App: React.FC = () => {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [isLoading, setLoading] = useState(true);
 
-  const addNote = (note: Note) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(BASE_URL);
+
+      setNotes(result.data);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  async function addNote(note: Note) {
     const id = uuidv4();
     note.id = id;
+    console.log(note);
+
+
+    await axios.post(BASE_URL, qs.stringify(note));
     setNotes((prevNotes) => [
       ...prevNotes,
       {
@@ -25,9 +44,18 @@ const App: React.FC = () => {
         best_before_date: note.best_before_date
       },
     ]);
-  };
+  }
+
+  async function deleteNote(id: string) {
 
 
+    await axios.delete(BASE_URL + "/" + id);
+    setNotes((prevItems) => {
+      return prevItems.filter((note) => {
+        return note.id !== id;
+      });
+    });
+  }
 
   const columns: Column<Note>[] = [
     {
@@ -63,16 +91,10 @@ const App: React.FC = () => {
             textDecoration: "underline",
           }}
           onClick={() => {
-            console.log(data);
-            // ES6 Syntax use the rvalue if your data is an array.
-            const dataCopy = [...data];
-            // It should not matter what you name tableProps. It made the most sense to me.
-            dataCopy.splice(tableProps.row.index, 1);
-            console.log(dataCopy);
-            setNotes(dataCopy);
+            deleteNote(tableProps.row.original.id)
           }}
         >
-          Delete
+          elimina
         </span>
       ),
     },
@@ -85,11 +107,12 @@ const App: React.FC = () => {
     <div className="App">
       <Heading />
       <CreateNote onAddNote={addNote} />
-      {notes.length > 0 && (
+      {!isLoading ? (notes.length > 0 && (
         <Styles>
           <Table columns={columns} data={data} />
         </Styles>
-      )}
+      )) : (<p>Loading ...</p>)
+      }
       <Footer />
     </div>
   );
