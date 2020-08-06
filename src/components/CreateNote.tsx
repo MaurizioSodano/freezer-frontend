@@ -13,8 +13,6 @@ type NoteProps = {
 const CreateNote: React.FC<NoteProps> = (props) => {
 
   const [checked, setChecked] = useState<boolean>(false);
-  const [startDate, setStartDate] = useState<string | null>(null);
-  const [endDate, setEndDate] = useState<string | null>(null);
   const [note, setNote] = useState<Note>({
     title: ""
   });
@@ -31,6 +29,7 @@ const CreateNote: React.FC<NoteProps> = (props) => {
 
     });
     setChecked(false);
+
   };
 
   function expandArea() {
@@ -55,36 +54,34 @@ const CreateNote: React.FC<NoteProps> = (props) => {
           onChange={handleChange}
           onClick={expandArea}
           name="title"
-          placeholder={!checked ? "Inserisci cibo..." : "Nome"}
           value={note.title}
+          placeholder={!checked ? "Inserisci cibo..." : "Nome"}
         />
         {checked && (
           <input
             onChange={handleChange}
             name="quantity"
-            placeholder="Quantità"
             value={note.quantity}
+            placeholder="Quantità"
           />
         )}
         {checked && (
           <input
             onChange={handleChange}
             name="weight"
-            placeholder="Peso..."
             value={note.weight}
+            placeholder="Peso..."
           />
         )}
         {checked && (
           <DatePicker
             dateFormat="dd-mm-yyyy"
-            selected={startDate ? new Date(startDate!) : null}
             name="insertion_date"
             value={note.insertion_date}
             placeholderText="Data inserimento..."
 
             onChange={(date) => {
               const parsedDate = dateFormat(date as Date, "dd/mm/yyyy");
-              //setStartDate(parsedDate);
               setNote((prevValue) => {
                 return {
                   ...prevValue,
@@ -97,14 +94,12 @@ const CreateNote: React.FC<NoteProps> = (props) => {
         {checked && (
           <DatePicker
             dateFormat="dd-mm-yyyy"
-            selected={endDate ? new Date(endDate!) : null}
             name="best_before_date"
             value={note.best_before_date}
             placeholderText="Data di scadenza..."
 
             onChange={(date) => {
               const parsedDate = dateFormat(date as Date, "dd/mm/yyyy");
-              //setEndDate(parsedDate);
               setNote((prevValue) => {
                 return {
                   ...prevValue,
